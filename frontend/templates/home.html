@@ -1,0 +1,85 @@
+{% extends "layout.html" %}
+{% block content %}
+<canvas id="chart" width="750" height="500"></canvas>
+<script>
+  // bar chart data
+  var barData = {
+    labels : [
+      {% for ano in anos %}
+        "{{ ano }}",
+      {% endfor %}
+    ],
+    datasets : [{
+      fillColor: "rgba(151,187,205,0.2)",
+      strokeColor: "rgba(151,187,205,1)",
+      pointColor: "rgba(151,187,205,1)",
+      pointStrokeColor: "#fff",
+      pointHighlightFill: "#fff",
+      pointHighlightStroke: "rgba(151,187,205,1)",
+      bezierCurve : false,
+      data : [
+      {% for despesa in despesa_pessoa %}
+        "{{ despesa }}",
+      {% endfor %}]
+    }]
+  }
+  Chart.defaults.global.animationSteps = 50;
+  Chart.defaults.global.tooltipYPadding = 16;
+  Chart.defaults.global.tooltipCornerRadius = 0;
+  Chart.defaults.global.tooltipTitleFontStyle = "normal";
+  Chart.defaults.global.tooltipFillColor = "rgba(0,0,0,0.8)";
+  Chart.defaults.global.animationEasing = "easeOutBounce";
+  Chart.defaults.global.responsive = false;
+  Chart.defaults.global.scaleLineColor = "black";
+  Chart.defaults.global.scaleFontSize = 16;
+  // get bar chart canvas
+  var mychart = document.getElementById("chart").getContext("2d");
+  steps = 5
+  max = {{max}}
+  // draw bar chart
+  var LineChartDemo = new Chart(mychart).Line(barData, {
+    scaleOverride: true,
+    scaleSteps: steps,
+    scaleStepWidth: Math.ceil(max / steps),
+    scaleStartValue: 0,
+    scaleShowVerticalLines: true,
+    scaleShowGridLines : true,
+    barShowStroke : true,
+    scaleShowLabels: true,
+    bezierCurve: false,
+  });
+</script>
+
+<table>
+  <tr>
+    <td>Nome</td>
+    <td>RA</td>
+  </tr>
+  <tr>
+    <td>Daniel de Azevedo Joveliano</td>
+    <td>[99382]</td>
+  </tr>
+  <tr>
+    <td>Gilson Nunes dos Santos Júnior</td>
+    <td>[96992]</td>
+  </tr>
+  <tr>
+    <td>Mateus Rodrigues Almeida da Silva</td>
+    <td>[94618]</td>
+  </tr>
+  <tr>
+    <td>Isaac Maciel Galli</td>
+    <td>[97361]</td>
+  </tr>
+  <tr>
+    <td>Rogério Ruela Melo</td>
+    <td>[95010]</td>
+  </tr>
+  <tr>
+    <td>Kaio Victor de Almeida Barros</td>
+    <td>[95002]</td>
+  </tr>
+
+</table>
+
+{% endblock %}

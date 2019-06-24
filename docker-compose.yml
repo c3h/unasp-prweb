@@ -1,0 +1,14 @@
+version: '3'
+services:
+  backend:
+    image: danieljov/app-back:latest
+
+  frontend:
+    container_name: frontend
+    image: danieljov/app-front:latest
+    ports:
+      - 8080:8080
+    depends_on:
+      - backend
+    links:
+      - backend
